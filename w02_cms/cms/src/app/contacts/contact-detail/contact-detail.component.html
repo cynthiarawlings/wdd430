@@ -4,13 +4,13 @@
             <div class="panel-heading custom-flex">
                 <div class="row">
                     <div class="col-xs-12">
-                        <h2>Name</h2>
+                        <h2>{{ contact.name }}</h2>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-xs-6">
                         <span class="pull-left">
-                            <img src="#" alt="Name" class="img-responsive" style="max-height: 50px;">
+                            <img src="{{ contact.imageUrl }}" alt="{{ contact.name }}" class="img-responsive" style="max-height: 50px;">
                         </span>
                     </div>
                     <div class="col-xs-6">
@@ -22,8 +22,8 @@
             <div class="panel-body">
                 <div class="row">
                     <div class="col-xs-12">
-                        <p>Email: </p>
-                        <p>Phone: </p>
+                        <p>Email: {{ contact.email }}</p>
+                        <p>Phone: {{ contact.phone }}</p>
                     </div>
                 </div>
             </div>
