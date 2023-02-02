@@ -20,13 +20,23 @@ export class contactService {
     }
 
     getContact(id: string) {
-        this.contacts.forEach(function (contact) {
+        for (let contact of this.contacts) {
             if (contact.id == id) {
                 return contact;
             }
             else if (contact == this.contacts[this.contacts.length-1]) {
                 return null;
             }
-        });
+        }
+
+
+        // this.contacts.forEach(function (contact) {
+        //     if (contact.id == id) {
+        //         return contact;
+        //     }
+        //     else if (contact == this.contacts[this.contacts.length-1]) {
+        //         return null;
+        //     }
+        // });
     }
 }
