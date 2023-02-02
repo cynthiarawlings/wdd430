@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component } from '@angular/core';
 import { Contact } from '../contact.model';
 import { contactService } from '../contact.service';
 
@@ -15,8 +15,7 @@ export class ContactListComponent {
   }
 
   ngOnInit() {
-    this.contacts = this.contactService.getContacts();
-    
+    this.contacts = this.contactService.getContacts(); 
   }
 
   onSelected(contact: Contact) {
