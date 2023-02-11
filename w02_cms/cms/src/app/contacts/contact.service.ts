@@ -8,6 +8,7 @@ import { MOCKCONTACTS } from "./MOCKCONTACTS";
 
 export class contactService {
     contactSelectedEvent = new EventEmitter<Contact>();
+    contactChangedEvent = new EventEmitter<Contact[]>();
 
     private contacts: Contact[] = [];
 
@@ -19,24 +20,19 @@ export class contactService {
         return this.contacts.slice();
     }
 
-    getContact(id: string) {
-        for (let contact of this.contacts) {
-            if (contact.id == id) {
-                return contact;
-            }
-            else if (contact == this.contacts[this.contacts.length-1]) {
-                return null;
-            }
+    getContact(index: string) {
+        return this.contacts[index];
+    }
+
+    deleteContact(contact: Contact) {
+        if (!contact) {
+           return;
         }
-
-
-        // this.contacts.forEach(function (contact) {
-        //     if (contact.id == id) {
-        //         return contact;
-        //     }
-        //     else if (contact == this.contacts[this.contacts.length-1]) {
-        //         return null;
-        //     }
-        // });
+        const pos = this.contacts.indexOf(contact);
+        if (pos < 0) {
+           return;
+        }
+        this.contacts.splice(pos, 1);
+        this.contactChangedEvent.emit(this.contacts.slice());
     }
 }

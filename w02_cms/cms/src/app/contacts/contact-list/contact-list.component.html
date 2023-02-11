@@ -3,16 +3,15 @@
         <div class="panel panel-default">
             <div class="panel-heading custom-flex">
                 <h3>Contacts</h3>
-                <a href="#" class="btn btn-success">New Contact</a>
+                <a routerLink="new" class="btn btn-success">New Contact</a>
             </div>
             <div class="panel-body">
                 <div class="row">
                     <div class="col-xs-12">
-                        <app-contact-item *ngFor="let contactEl of contacts" [contact]="contactEl" (click)="onSelected(contactEl)"></app-contact-item>
+                        <app-contact-item *ngFor="let contactEl of contacts; let i = index;" [contact]="contactEl" [index]="i"></app-contact-item>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-

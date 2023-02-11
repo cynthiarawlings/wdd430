@@ -8,6 +8,7 @@ import { Document } from "./document.model";
 
 export class documentService {
     documentSelectedEvent = new EventEmitter<Document>();
+    documentChangedEvent = new EventEmitter<Document[]>();
 
     private documents: Document[]= [];
 
@@ -20,13 +21,18 @@ export class documentService {
     }
 
     getDocument(id: string) {
-        this.documents.forEach(function (document) {
-            if (document.id == id) {
-                return document;
-            }
-            else if (document == this.documents[this.document.length-1]) {
-                return null;
-            }
-        });
+        return this.documents[id];
+    }
+
+    deleteDocument(document: Document) {
+        if (!document) {
+           return;
+        }
+        const pos = this.documents.indexOf(document);
+        if (pos < 0) {
+           return;
+        }
+        this.documents.splice(pos, 1);
+        this.documentChangedEvent.emit(this.documents.slice());
     }
 }
