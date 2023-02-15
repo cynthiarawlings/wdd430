@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Subscription } from "rxjs";
 import { Contact } from '../contact.model';
 import { contactService } from '../contact.service';
 
@@ -9,6 +10,7 @@ import { contactService } from '../contact.service';
 })
 export class ContactListComponent {
   contacts: Contact[] = [];
+  private subscription: Subscription;
 
   constructor(private contactService: contactService) {
 
@@ -19,6 +21,11 @@ export class ContactListComponent {
     this.contactService.contactChangedEvent.subscribe(
       (contacts: Contact[]) => {
         this.contacts = contacts;
+      }
+    );
+    this.subscription = this.contactService.contactListChangedEvent.subscribe(
+      (contactList: Contact[]) => {
+        this.contacts = contactList
       }
     );
   }
