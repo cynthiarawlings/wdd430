@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Contact } from '../contact.model';
 
 @Component({
   selector: 'app-contact-edit',
@@ -6,5 +7,10 @@ import { Component } from '@angular/core';
   styleUrls: ['./contact-edit.component.css']
 })
 export class ContactEditComponent {
+groupContacts: Contact[];
+
+onCancel() {
+
+}
 
 }

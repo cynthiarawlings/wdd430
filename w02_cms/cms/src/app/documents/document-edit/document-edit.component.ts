@@ -1,5 +1,9 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
+import { NgForm } from '@angular/forms';
+import { documentService } from '../document.service';
+import { Subscription } from 'rxjs';
+import { Document } from '../document.model';
 
 @Component({
   selector: 'app-document-edit',
@@ -8,18 +12,57 @@ import { ActivatedRoute, Params } from '@angular/router';
 })
 export class DocumentEditComponent {
   id: string;
-  editMode: boolean;
+  originalDocument: Document;
+  document: Document;
+  editMode: boolean = false;
+  subscription: Subscription;
 
-  constructor(private route: ActivatedRoute){
+  constructor(private route: ActivatedRoute, private documentService: documentService, private router: Router) {
 
   }
+
+  // ngOnInit() {
+  //   this.route.params.subscribe(
+  //     (params: Params) => {
+  //       this.id = params["id"];
+  //       this.editMode = params["id"] != null;
+  //     }
+  //   );
+  // }
 
   ngOnInit() {
     this.route.params.subscribe(
       (params: Params) => {
         this.id = params["id"];
-        this.editMode = params["id"] != null;
+        if (!this.id) {
+          this.editMode = false;
+          return;
+        }
+        this.originalDocument = this.documentService.getDocument(this.id);
+        if (!this.originalDocument) {
+          return;
+        }
+        this.editMode = true;
+        this.document = JSON.parse(JSON.stringify(this.originalDocument));
+        console.log(this.document);
       }
     );
   }
+
+  onCancel() {
+    this.router.navigate(['/documents']);
+  }
+
+  onSubmit(form: NgForm) {
+    const value = form.value;
+    const newDocument = new Document(value.id, value.name, value.description, value.url, value.children);
+    if (this.editMode) {
+      this.documentService.updateDocument(this.originalDocument, newDocument);
+    }
+    else {
+      this.documentService.addDocument(newDocument);
+    }
+    this.router.navigate(['/documents']);
+  }
+
 }
