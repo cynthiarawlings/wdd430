@@ -21,15 +21,6 @@ export class DocumentEditComponent {
 
   }
 
-  // ngOnInit() {
-  //   this.route.params.subscribe(
-  //     (params: Params) => {
-  //       this.id = params["id"];
-  //       this.editMode = params["id"] != null;
-  //     }
-  //   );
-  // }
-
   ngOnInit() {
     this.route.params.subscribe(
       (params: Params) => {
@@ -44,7 +35,6 @@ export class DocumentEditComponent {
         }
         this.editMode = true;
         this.document = JSON.parse(JSON.stringify(this.originalDocument));
-        console.log(this.document);
       }
     );
   }
@@ -64,5 +54,5 @@ export class DocumentEditComponent {
     }
     this.router.navigate(['/documents']);
   }
-
+  
 }
