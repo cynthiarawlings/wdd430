@@ -4,36 +4,16 @@
       <div class="row">
         <div class="col-sm-12 form-group">
           <label for="name">Name:</label>
-          <input 
-            type="text" 
-            id="name" 
-            class="form-control 
-            required" 
-            size="120" 
-            max="120"
-            name="name"
-            required
-            #name
-            [ngModel]=contact?.name
-          >
+          <input type="text" id="name" class="form-control 
+            required" size="120" max="120" name="name" required #name [ngModel]=contact?.name>
         </div>
       </div>
 
       <div class="row">
         <div class="col-sm-12 form-group">
           <label for="email">Email:</label>
-          <input 
-            type="text" 
-            id="email" 
-            class="form-control required" 
-            size="120" 
-            max="255"
-            name="email"
-            required
-            #email
-            [ngModel]=contact?.email
-            pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"
-          >
+          <input type="text" id="email" class="form-control required" size="120" max="255" name="email" required #email
+            [ngModel]=contact?.email pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$">
           <div *ngIf="!email.valid && email.touched" class="alert alert-danger">Enter a valid Email address.</div>
         </div>
       </div>
@@ -41,17 +21,8 @@
       <div class="row">
         <div class="col-sm-12 form-group">
           <label for="phone">Phone:</label>
-          <input 
-            type="text" 
-            id="phone" 
-            class="form-control invalid" 
-            size="150" 
-            max="255"
-            name="phone"
-            [ngModel]=contact?.phone
-            pattern="\D*([2-9]\d{2})(\D*)([2-9]\d{2})(\D*)(\d{4})\D*"
-            #phone
-          >
+          <input type="text" id="phone" class="form-control invalid" size="150" max="255" name="phone"
+            [ngModel]=contact?.phone pattern="\D*([2-9]\d{2})(\D*)([2-9]\d{2})(\D*)(\d{4})\D*" #phone>
           <div *ngIf="!phone.valid && phone.touched" class="alert alert-danger">Enter a valid phone number.</div>
         </div>
       </div>
@@ -59,15 +30,8 @@
       <div class="row">
         <div class="col-sm-12 form-group">
           <label for="imageUrl">Image URL:</label>
-          <input 
-            type="text" 
-            id="imageUrl" 
-            class="form-control" 
-            size="150" 
-            max="255"
-            name="imageUrl"
-            [ngModel]=contact?.imageUrl
-          >
+          <input type="text" id="imageUrl" class="form-control" size="150" max="255" name="imageUrl"
+            [ngModel]=contact?.imageUrl>
           <div *ngIf="!f.valid && f.touched" class="alert alert-danger">The Name and Email fields are required.</div>
         </div>
       </div>
@@ -76,11 +40,12 @@
         <div class="form-group">
           <label for="groupList">Group Contacts:</label>
 
-          <div class="row" id="groupList" style="min-height: 3rem;">
+          <div class="row" id="groupList" style="min-height: 3rem;" dnd-droppable [dropZones]="['contactGroup']"
+            (onDropSuccess)="addToGroup($event)">
 
             <div *ngFor="let contact of groupContacts; let i = index">
               <div>
-                <cms-contact-item class="col-sm-11" [contact]="contact"></cms-contact-item>
+                <app-contact-item class="col-sm-11" [contact]="contact"></app-contact-item>
                 <button class="btn btn-danger col-sm-2 deleteButton" (click)="onRemoveItem(i)">X</button>
               </div>
             </div>
