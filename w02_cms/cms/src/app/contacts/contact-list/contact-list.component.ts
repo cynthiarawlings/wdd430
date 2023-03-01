@@ -10,6 +10,7 @@ import { contactService } from '../contact.service';
 })
 export class ContactListComponent {
   contacts: Contact[] = [];
+  term: string;
   private subscription: Subscription;
 
   constructor(private contactService: contactService) {
@@ -30,4 +31,10 @@ export class ContactListComponent {
     );
   }
 
+  search(value: string) {
+    this.term = value;
+    // console.log("Attempted Search with: " + this.term);
+  }
+
 }
+
