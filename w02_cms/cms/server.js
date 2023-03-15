@@ -5,6 +5,7 @@ const http = require('http');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
+const mongoose = require('mongoose');
 
 // import the routing file to handle the default (index) route
 const index = require('./server/routes/app');
@@ -13,6 +14,28 @@ const index = require('./server/routes/app');
 const messageRoutes = require("./server/routes/messages");
 const contactRoutes = require("./server/routes/contacts");
 const documentsRoutes = require("./server/routes/documents");
+
+
+// establish a connection to the mongo database
+// mongoose.connect('mongodb://localhost:27017/cms',
+//    { useNewUrlParser: true }, (err, res) => {
+//       if (err) {
+//          console.log('Connection failed: ' + err);
+//       }
+//       else {
+//          console.log('Connected to database!');
+//       }
+//    }
+// );
+
+mongoose.connect("mongodb+srv://admin:rxK4G8ruhGwrpQzT@cluster0.zxiazbs.mongodb.net/cms?retryWrites=true&w=majority")
+    .then(() => {
+        console.log("Connected to the database!");
+    })
+    .catch(() => {
+        console.log("Connection failed!")
+    });
+
 
 const app = express(); // create an instance of express
 
